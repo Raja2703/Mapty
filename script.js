@@ -112,6 +112,9 @@ class App {
 
         // hide form
         this._hideForm()
+
+        // set workkouts to local storage
+        this._setLocalStorage()
     }
 
     _renderWorkoutMarker(workout) {
@@ -179,11 +182,11 @@ class App {
 
     _moveToWorkout(e){
         const clickedEle = e.target.closest('.workout')
-        console.log(clickedEle)
+        // console.log(clickedEle)
 
         if(!clickedEle) return;
         const workout = this.#workouts.find(work => work.id === clickedEle.dataset.id)
-        console.log(workout)
+        // console.log(workout)
         
         this.#map.setView(workout.coords,13,{
             animate:true,
@@ -191,6 +194,10 @@ class App {
                 duration:1
             }
         })
+    }
+
+    _setLocalStorage(){
+        localStorage.setItem('workouts',JSON.stringify(this.#workouts));
     }
 }
 
@@ -247,6 +254,3 @@ class Cycling extends Workout {
 }
 
 const app = new App();
-// const run1 = new Running([39, -12], 5.2, 24, 178);
-// const cy1 = new Cycling([39, -12], 27, 95, 523);
-// console.log(run1, cy1)
